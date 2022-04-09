@@ -20,8 +20,12 @@ const friends = [
 ]
 
 app.use((req, res, next) => {
-    console.log(`${req.method} ${req.url}`);
+    const start = Date.now()
     next()
+
+    // take action before returning the result to client
+    const duration = Date.now() - start
+    console.log(`${req.method} ${req.url} takes ${duration}ms`);
 })
 
 app.get('/friends', (req, res) => {
