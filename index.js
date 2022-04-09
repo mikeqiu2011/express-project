@@ -5,7 +5,14 @@ const app = express()
 const PORT = 3000
 
 app.get('/', (req, res) => {
-    res.end('hello')
+    res.send('hello')
+})
+
+app.get('/user', (req, res) => {  // express auto set the Content-Type
+    res.send({
+        id: 1,
+        name: 'mike'
+    })
 })
 
 app.get('/messages', (req, res) => {
