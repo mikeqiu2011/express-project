@@ -19,6 +19,7 @@ const friends = [
     },
 ]
 
+// first middleware to calculate the time duration
 app.use((req, res, next) => {
     const start = Date.now()
     next()
@@ -31,6 +32,10 @@ app.use((req, res, next) => {
 app.get('/friends', (req, res) => {
     res.json(friends)
 })
+
+// second middleware to tell express to use json to parse body by default
+// after that, we can use req.body
+app.use(express.json())
 
 app.get('/friends/:id', (req, res) => {
     const id = req.params.id
@@ -47,6 +52,12 @@ app.get('/friends/:id', (req, res) => {
 
 app.post('/friends', (req, res) => {
     console.log(req.body);
+    const newFriend = {
+        name: req.body.name,
+        id: friends.length + 1
+    }
+    friends.push(newFriend)
+    res.status(201).send(newFriend)
 })
 
 app.get('/user', (req, res) => {  // express auto set the Content-Type
