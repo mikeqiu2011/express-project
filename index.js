@@ -52,12 +52,16 @@ app.get('/friends/:id', (req, res) => {
 
 app.post('/friends', (req, res) => {
     console.log(req.body);
+    if (!req.body.name) {
+        return res.status(400).json({ error: 'name must be provided' })
+    } // you need to return immediately, otherwise will get error of "Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client"
+
     const newFriend = {
         name: req.body.name,
         id: friends.length + 1
     }
     friends.push(newFriend)
-    res.status(201).send(newFriend)
+    res.status(201).json(newFriend)
 })
 
 app.get('/user', (req, res) => {  // express auto set the Content-Type
