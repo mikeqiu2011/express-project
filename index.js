@@ -31,9 +31,14 @@ app.get('/friends/:id', (req, res) => {
     if (friend) {
         res.json(friend)
     } else {
-        res.sendStatus(404)
+        res.status(404).json({
+            error: 'friend does not exist'
+        })
     }
+})
 
+app.post('/friends', (req, res) => {
+    console.log(req.body);
 })
 
 app.get('/user', (req, res) => {  // express auto set the Content-Type
