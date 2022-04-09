@@ -4,8 +4,36 @@ const app = express()
 
 const PORT = 3000
 
-app.get('/', (req, res) => {
-    res.send('hello')
+const friends = [
+    {
+        id: 1,
+        name: 'mike'
+    },
+    {
+        id: 2,
+        name: 'kevin'
+    },
+    {
+        id: 3,
+        name: 'frank'
+    },
+
+]
+
+app.get('/friends', (req, res) => {
+    res.json(friends)
+})
+
+app.get('/friends/:id', (req, res) => {
+    const id = req.params.id
+    const friend = friends.filter(friend => friend.id == id)[0]
+
+    if (friend) {
+        res.json(friend)
+    } else {
+        res.sendStatus(404)
+    }
+
 })
 
 app.get('/user', (req, res) => {  // express auto set the Content-Type
