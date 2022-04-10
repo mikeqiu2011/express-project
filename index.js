@@ -19,11 +19,12 @@ app.use((req, res, next) => {
 // after that, we can use req.body
 app.use(express.json())
 
-// const friendRouter = express.Router()
-
-app.get('/friends', friendsController.getFriends)
-app.get('/friends/:id', friendsController.getFriend)
-app.post('/friends', friendsController.postFriend)
+// using router
+const friendRouter = express.Router()
+friendRouter.get('/friends', friendsController.getFriends)
+friendRouter.get('/friends/:id', friendsController.getFriend)
+friendRouter.post('/friends', friendsController.postFriend)
+app.use(friendRouter)
 
 app.get('/messages', messagesController.getMessages)
 app.post('/messages', messagesController.postMessages)
