@@ -1,23 +1,9 @@
 const express = require('express')
+const messagesController = require('./controllers/messages.controller')
+const friendsController = require('./controllers/friends.controller')
 
 const app = express()
-
 const PORT = 3000
-
-const friends = [
-    {
-        id: 1,
-        name: 'mike'
-    },
-    {
-        id: 2,
-        name: 'kevin'
-    },
-    {
-        id: 3,
-        name: 'frank'
-    },
-]
 
 // first middleware to calculate the time duration
 app.use((req, res, next) => {
@@ -29,55 +15,18 @@ app.use((req, res, next) => {
     console.log(`${req.method} ${req.url} takes ${duration}ms`);
 })
 
-app.get('/friends', (req, res) => {
-    res.json(friends)
-})
-
 // second middleware to tell express to use json to parse body by default
 // after that, we can use req.body
 app.use(express.json())
 
-app.get('/friends/:id', (req, res) => {
-    const id = req.params.id
-    const friend = friends.filter(friend => friend.id == id)[0]
+// const friendRouter = express.Router()
 
-    if (friend) {
-        res.json(friend)
-    } else {
-        res.status(404).json({
-            error: 'friend does not exist'
-        })
-    }
-})
+app.get('/friends', friendsController.getFriends)
+app.get('/friends/:id', friendsController.getFriend)
+app.post('/friends', friendsController.postFriend)
 
-app.post('/friends', (req, res) => {
-    console.log(req.body);
-    if (!req.body.name) {
-        return res.status(400).json({ error: 'name must be provided' })
-    } // you need to return immediately, otherwise will get error of "Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client"
-
-    const newFriend = {
-        name: req.body.name,
-        id: friends.length + 1
-    }
-    friends.push(newFriend)
-    res.status(201).json(newFriend)
-})
-
-app.get('/user', (req, res) => {  // express auto set the Content-Type
-    res.send({
-        id: 1,
-        name: 'mike'
-    })
-})
-
-app.get('/messages', (req, res) => {
-    res.send('<h1>hello user</h1>')
-})
-
-app.post('/messages', (req, res) => {
-    console.log('updating messages');
-})
+app.get('/messages', messagesController.getMessages)
+app.post('/messages', messagesController.postMessages)
 
 app.listen(PORT, () => {
     console.log(`server is listening on port ${PORT}`);
