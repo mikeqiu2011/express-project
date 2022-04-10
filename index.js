@@ -13,7 +13,9 @@ app.use((req, res, next) => {
 
     // take action before returning the result to client
     const duration = Date.now() - start
-    console.log(`${req.method} ${req.url} takes ${duration}ms`);
+    // now we seperate router into individual folder, the req.url will be "/", so we
+    // have to add base.url which is the mounting route
+    console.log(`${req.method} ${req.baseUrl}${req.url} takes ${duration}ms`);
 })
 
 // second middleware to tell express to use json to parse body by default
