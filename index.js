@@ -1,4 +1,5 @@
 const express = require('express')
+const path = require('path')
 
 const friendsRouter = require('./routes/friends.router')
 const messagesRouter = require('./routes/messages.router')
@@ -19,7 +20,7 @@ app.use((req, res, next) => {
 })
 
 // serve static content middleware
-app.use('/site', express.static('public'))
+app.use('/site', express.static(path.join(__dirname, 'public')))
 
 // second middleware to tell express to use json to parse body by default
 // after that, we can use req.body
