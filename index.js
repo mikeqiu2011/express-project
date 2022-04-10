@@ -22,6 +22,7 @@ app.use((req, res, next) => {
     console.log(`${req.method} ${req.baseUrl}${req.url} takes ${duration}ms`);
 })
 
+// render html template
 app.get('/', (req, res) => {
     res.render('index', {
         title: 'hello title',
