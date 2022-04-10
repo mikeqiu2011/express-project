@@ -9,3 +9,6 @@
 
 ## static site
     http://localhost:3000/site/
+
+## install template engine
+    npm i hbs
