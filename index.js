@@ -25,7 +25,7 @@ app.use((req, res, next) => {
 // render html template
 app.get('/', (req, res) => {
     res.render('index', {
-        title: 'hello title',
+        title: 'hello home page',
         caption: 'my friend good view'
     })
 })

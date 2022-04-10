@@ -5,8 +5,12 @@ function postMessages(req, res) {  // used named function instead of error easy 
 }
 
 function getMessages(req, res) {
-    console.log(__dirname);
-    res.sendFile(path.join(__dirname, '..', 'public', 'images', 'cumulus.jpeg'))
+    res.render('messages', {
+        title: 'messages to my friends',
+        friend: 'mike'
+    })
+    // console.log(__dirname);
+    // res.sendFile(path.join(__dirname, '..', 'public', 'images', 'cumulus.jpeg'))
 }
 
 module.exports = {
