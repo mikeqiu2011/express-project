@@ -6,4 +6,6 @@
 
 ## development dependency
     npm i nodemon --save-dev
-    
+
+## static site
+    http://localhost:3000/site/

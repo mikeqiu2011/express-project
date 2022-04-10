@@ -18,6 +18,9 @@ app.use((req, res, next) => {
     console.log(`${req.method} ${req.baseUrl}${req.url} takes ${duration}ms`);
 })
 
+// serve static content middleware
+app.use('/site', express.static('public'))
+
 // second middleware to tell express to use json to parse body by default
 // after that, we can use req.body
 app.use(express.json())
