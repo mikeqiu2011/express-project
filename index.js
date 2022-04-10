@@ -21,10 +21,10 @@ app.use(express.json())
 
 // using router
 const friendRouter = express.Router()
-friendRouter.get('/friends', friendsController.getFriends)
-friendRouter.get('/friends/:id', friendsController.getFriend)
-friendRouter.post('/friends', friendsController.postFriend)
-app.use(friendRouter)
+friendRouter.get('/', friendsController.getFriends)
+friendRouter.get('/:id', friendsController.getFriend)
+friendRouter.post('/', friendsController.postFriend)
+app.use('/friends', friendRouter) // mounting friend router onto App
 
 app.get('/messages', messagesController.getMessages)
 app.post('/messages', messagesController.postMessages)
