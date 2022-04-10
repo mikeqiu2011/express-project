@@ -4,8 +4,11 @@ const path = require('path')
 const friendsRouter = require('./routes/friends.router')
 const messagesRouter = require('./routes/messages.router')
 
-const app = express()
 const PORT = 3000
+const app = express()
+app.set('view engine', 'hbs')  // use Handlebars as our view template engine
+app.set('views', path.join(__dirname, 'views'))
+
 
 // first middleware to calculate the time duration
 app.use((req, res, next) => {
@@ -19,7 +22,15 @@ app.use((req, res, next) => {
     console.log(`${req.method} ${req.baseUrl}${req.url} takes ${duration}ms`);
 })
 
+app.get('/', (req, res) => {
+    res.render('index', {
+        title: 'hello title',
+        caption: 'my friend good view'
+    })
+})
+
 // serve static content middleware
+// for big application, static files best served at Akamai or AWS cloudfront
 app.use('/site', express.static(path.join(__dirname, 'public')))
 
 // second middleware to tell express to use json to parse body by default
